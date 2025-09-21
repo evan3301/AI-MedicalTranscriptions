@@ -25,8 +25,6 @@ id,text,specialty
 2,"Chest pain on exertion, ECG shows ST changes...", "Cardiology"
 ```
 
-You can replace the toy examples in `data/` with your own split (stratify by specialty).
-
 ## Components
 - `src/classify/` — PyTorch (Transformers) document classifier
 - `src/tokencls/` — optional PyTorch token classification (NER) head
