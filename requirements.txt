@@ -1,0 +1,8 @@
+torch==2.*
+transformers==4.*
+scikit-learn==1.*
+pandas==2.*
+numpy==1.*
+tqdm==4.*
+rich==13.*
+symspellpy==6.*
