@@ -1,4 +1,4 @@
-# Transcriptive — PyTorch Starter
+# Harnessing AI for Smart Medical Transcription Enhancement
 
 A minimal, PyTorch-first scaffold for **Project 2: Transcriptive** (specialty classification, entity extraction, QA/error checks, summary).
 
