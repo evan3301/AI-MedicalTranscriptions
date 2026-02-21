@@ -1,0 +1,58 @@
+{
+  "model_used": "logreg",
+  "prediction": "Cardiovascular / Pulmonary",
+  "confidence": 0.10854631030824466,
+  "soap_summary": "=== SOAP Summary ===\nAssessment (Dx): \u2014\nMedications: aspirin | doses: 81 mg\nPlan: \u2014",
+  "classification": {
+    "label": "Cardiovascular / Pulmonary",
+    "probs": {
+      "Allergy / Immunology": 0.0021188336178414088,
+      "Autopsy": 0.0013741483793382621,
+      "Bariatrics": 0.005156283938590996,
+      "Cardiovascular / Pulmonary": 0.10854631030824466,
+      "Chiropractic": 0.00421181219404271,
+      "Consult - History and Phy.": 0.0866839181778579,
+      "Cosmetic / Plastic Surgery": 0.0046153494585288715,
+      "Dentistry": 0.005567949476626187,
+      "Dermatology": 0.00879208389848092,
+      "Diets and Nutritions": 0.004112861647649971,
+      "Discharge Summary": 0.03360994694235585,
+      "ENT - Otolaryngology": 0.024237186641265465,
+      "Emergency Room Reports": 0.01433215200161879,
+      "Endocrinology": 0.0041258727783843735,
+      "Gastroenterology": 0.04915624881468742,
+      "General Medicine": 0.06620721428612003,
+      "Hematology - Oncology": 0.019495426974716328,
+      "Hospice - Palliative Care": 0.0017881606452469093,
+      "IME-QME-Work Comp etc.": 0.0020694441054350315,
+      "Lab Medicine - Pathology": 0.002158591980156572,
+      "Letters": 0.005920464931388389,
+      "Nephrology": 0.016642376429553372,
+      "Neurology": 0.04220735802347372,
+      "Neurosurgery": 0.012578962001935558,
+      "Obstetrics / Gynecology": 0.027852549397725797,
+      "Office Notes": 0.03344182121770275,
+      "Ophthalmology": 0.014133193657895985,
+      "Orthopedic": 0.04988786516792244,
+      "Pain Management": 0.019326666679808032,
+      "Pediatrics - Neonatal": 0.020878994033898195,
+      "Physical Medicine - Rehab": 0.006256633938577475,
+      "Podiatry": 0.009973326238745119,
+      "Psychiatry / Psychology": 0.010351424323810534,
+      "Radiology": 0.07715283680706618,
+      "Rheumatology": 0.003333878309471804,
+      "SOAP / Chart / Progress Notes": 0.08374875496588874,
+      "Sleep Medicine": 0.007432323100855432,
+      "Speech - Language": 0.0024107349633985036,
+      "Surgery": 0.07859360310795951,
+      "Urology": 0.029516436435733706
+    }
+  },
+  "qa": {
+    "issues": []
+  },
+  "summary": {
+    "soap_text": "=== SOAP Summary ===\nAssessment (Dx): \u2014\nMedications: aspirin | doses: 81 mg\nPlan: \u2014"
+  },
+  "model_dir_used": "storage/models_registry/active/logreg"
+}

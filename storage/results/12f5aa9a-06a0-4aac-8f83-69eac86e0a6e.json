@@ -1,0 +1,54 @@
+{
+  "model_used": "logreg",
+  "classification": {
+    "label": "SOAP / Chart / Progress Notes",
+    "probs": {
+      "Allergy / Immunology": 0.01802731296660115,
+      "Autopsy": 0.008159240949274305,
+      "Bariatrics": 0.016356558399741542,
+      "Cardiovascular / Pulmonary": 0.04643897987474103,
+      "Chiropractic": 0.015396292778804499,
+      "Consult - History and Phy.": 0.04039486963381512,
+      "Cosmetic / Plastic Surgery": 0.015077068937043185,
+      "Dentistry": 0.013490456615806327,
+      "Dermatology": 0.026793425950430383,
+      "Diets and Nutritions": 0.014521507888687312,
+      "Discharge Summary": 0.032169833432955416,
+      "ENT - Otolaryngology": 0.02714034948099422,
+      "Emergency Room Reports": 0.024583762214934995,
+      "Endocrinology": 0.015753413869052046,
+      "Gastroenterology": 0.03149118526483896,
+      "General Medicine": 0.03984561087549165,
+      "Hematology - Oncology": 0.03621665450261832,
+      "Hospice - Palliative Care": 0.011007048624476124,
+      "IME-QME-Work Comp etc.": 0.013547345239440857,
+      "Lab Medicine - Pathology": 0.011144076836822031,
+      "Letters": 0.01972152440664411,
+      "Nephrology": 0.02478114809864594,
+      "Neurology": 0.034027416205110794,
+      "Neurosurgery": 0.018775751144254955,
+      "Obstetrics / Gynecology": 0.025088815293348284,
+      "Office Notes": 0.03355419951824491,
+      "Ophthalmology": 0.01968747460888332,
+      "Orthopedic": 0.02856072603815983,
+      "Pain Management": 0.024670251638179357,
+      "Pediatrics - Neonatal": 0.0313458439456619,
+      "Physical Medicine - Rehab": 0.01629807163225727,
+      "Podiatry": 0.01958525516967123,
+      "Psychiatry / Psychology": 0.02486092956882585,
+      "Radiology": 0.03719156580898465,
+      "Rheumatology": 0.017772678953252463,
+      "SOAP / Chart / Progress Notes": 0.07761060015971309,
+      "Sleep Medicine": 0.017507332295115006,
+      "Speech - Language": 0.010625701000531125,
+      "Surgery": 0.03243173295586859,
+      "Urology": 0.028347987222077785
+    }
+  },
+  "qa": {
+    "issues": []
+  },
+  "summary": {
+    "soap_text": "=== SOAP Summary ===\nAssessment (Dx): —\nMedications: aspirin | doses: 81 mg\nPlan: —"
+  }
+}

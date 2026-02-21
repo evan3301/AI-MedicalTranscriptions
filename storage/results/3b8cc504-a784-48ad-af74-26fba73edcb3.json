@@ -1,0 +1,72 @@
+{
+  "classification": {
+    "label": "General Medicine",
+    "probs": {
+      "Allergy / Immunology": 0.0018711615120992064,
+      "Autopsy": 0.0011932625202462077,
+      "Bariatrics": 0.003908928483724594,
+      "Cardiovascular / Pulmonary": 0.030355039983987808,
+      "Chiropractic": 0.004054236225783825,
+      "Consult - History and Phy.": 0.21158534288406372,
+      "Cosmetic / Plastic Surgery": 0.0014043183764442801,
+      "Dentistry": 0.0023429805878549814,
+      "Dermatology": 0.009963566437363625,
+      "Diets and Nutritions": 0.002135183662176132,
+      "Discharge Summary": 0.019278353080153465,
+      "ENT - Otolaryngology": 0.014243856072425842,
+      "Emergency Room Reports": 0.04568000137805939,
+      "Endocrinology": 0.004280562978237867,
+      "Gastroenterology": 0.016293000429868698,
+      "General Medicine": 0.33690547943115234,
+      "Hematology - Oncology": 0.020827557891607285,
+      "Hospice - Palliative Care": 0.002103636972606182,
+      "IME-QME-Work Comp etc.": 0.0034368173219263554,
+      "Lab Medicine - Pathology": 0.0010896925814449787,
+      "Letters": 0.00340757193043828,
+      "Nephrology": 0.006807040423154831,
+      "Neurology": 0.009297078475356102,
+      "Neurosurgery": 0.0011289753019809723,
+      "Obstetrics / Gynecology": 0.007905651815235615,
+      "Office Notes": 0.043014928698539734,
+      "Ophthalmology": 0.002766852267086506,
+      "Orthopedic": 0.015293758362531662,
+      "Pain Management": 0.0023218204732984304,
+      "Pediatrics - Neonatal": 0.023258894681930542,
+      "Physical Medicine - Rehab": 0.0032205861061811447,
+      "Podiatry": 0.0033732918091118336,
+      "Psychiatry / Psychology": 0.011115506291389465,
+      "Radiology": 0.0029999061953276396,
+      "Rheumatology": 0.004703375045210123,
+      "SOAP / Chart / Progress Notes": 0.10431146621704102,
+      "Sleep Medicine": 0.0038105789572000504,
+      "Speech - Language": 0.0015931613743305206,
+      "Surgery": 0.007655212190002203,
+      "Urology": 0.009061407297849655
+    }
+  },
+  "qa": {
+    "issues": [
+      {
+        "type": "section_missing",
+        "msg": "Missing section: Assessment"
+      },
+      {
+        "type": "section_missing",
+        "msg": "Missing section: Plan"
+      },
+      {
+        "type": "section_missing",
+        "msg": "Missing section: Medications"
+      }
+    ]
+  },
+  "summary": {
+    "soap": {
+      "subjective": null,
+      "objective": null,
+      "assessment": null,
+      "plan": null
+    },
+    "note": "Summary v1 placeholder (upgrade to summarize/build.py parity next)."
+  }
+}
