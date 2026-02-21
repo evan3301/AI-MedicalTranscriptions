@@ -1,0 +1,114 @@
+############################################
+# OS / Editor
+############################################
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.iml
+
+############################################
+# Python
+############################################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+pip-wheel-metadata/
+*.log
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+############################################
+# Jupyter (if any)
+############################################
+.ipynb_checkpoints/
+
+############################################
+# Local secrets / env files
+############################################
+.env
+.env.*
+*.pem
+*.key
+
+############################################
+# Server runtime storage (generated)
+############################################
+# If you want graders to start clean, ignore all runtime-generated storage.
+# Keep your static models under /models and your sample CSVs under /data.
+storage/
+# If you want to keep storage/ but ignore only generated parts, comment the line above
+# and use the more granular ignores below instead:
+# storage/server.db
+# storage/training_data/
+# storage/models_registry/runs/
+# storage/models_registry/active/
+
+############################################
+# Models / Artifacts (generated)
+############################################
+# If you ever generate new runs locally, don't commit them
+models_registry/
+training_data/
+runs/
+
+############################################
+# Huge model weights (do not commit)
+############################################
+models/cls_distilbert/model.safetensors
+storage/models_registry/**/model.safetensors
+storage/models_registry/**/distilbert/model.safetensors
+
+############################################
+# Android / Gradle
+############################################
+# Gradle
+.gradle/
+**/.gradle/
+build/
+**/build/
+
+# Local SDK path (DO NOT COMMIT)
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+**/.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Kotlin / Java
+*.class
+
+# Compose / tooling caches
+*.hprof
+
+############################################
+# Android Output
+############################################
+*.apk
+*.aab
+
+############################################
+# Optional: logs
+############################################
+*.log
+
+############################################
+# Optional: node (if ever used)
+############################################
+node_modules/
