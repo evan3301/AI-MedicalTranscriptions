@@ -1,203 +1,270 @@
-# Transcriptive – Harnessing AI for Smart Medical Transcription Enhancement
+# Transcriptive – AI-Powered Medical Transcription Intelligence (Server)
 
-A lightweight, reproducible scaffold for **Team 2 – Project 2** that turns raw clinical notes into useful artifacts:
+Transcriptive is a lightweight, reproducible backend system that transforms raw clinical notes into structured, clinically useful artifacts through machine learning and rule-based post-processing.
 
-- **Specialty classification** (TF‑IDF + Logistic Regression / Naive Bayes, or DistilBERT)
-- **Entity extraction** (weak‑supervision rules for diagnoses & medications/doses)
-- **QA checks** (implausible vitals, missing sections, simple unit sanity)
-- **SOAP‑style summarization** (template + extracted entities)
-
-> **Cycle 2 deliverable:** end‑to‑end CLI demo + evaluation reports suitable for the live presentation.
+This repository contains the **FastAPI backend server** powering the Android demo application.
 
 ---
 
-## Setup
+## 🚀 What This System Does
+
+Transcriptive provides a full end-to-end AI workflow:
+
+- 🏥 Specialty Classification (Naive Bayes, Logistic Regression, DistilBERT)
+- 📊 Automated Training Pipeline
+- 🗂 Model Versioning & Registry
+- 📈 Validation Metrics Tracking
+- 🧠 Prediction with Confidence Scores
+- 📝 SOAP-Style Summary Generation
+
+The system is designed to be:
+- Reproducible
+- Modular
+- Version-controlled
+- Presentation-ready
+
+---
+
+## 🧠 Model Tiers
+
+Users can select one of three model tiers:
+
+| Tier       | Model Used                  | Speed     | Expected Accuracy |
+|------------|----------------------------|-----------|-------------------|
+| Instant    | TF-IDF + Naive Bayes       | Fastest   | Baseline          |
+| Standard   | TF-IDF + Logistic Regression | Moderate  | Improved          |
+| Thinking   | DistilBERT (Transformer)   | Slowest   | Highest Potential |
+
+All tiers use the same training pipeline and registry system.
+
+---
+
+## 🏗 System Architecture
+
+The backend workflow operates as follows:
+
+1. User uploads a labeled CSV dataset  
+2. Server performs a stratified train/validation split  
+3. Selected model tier is trained  
+4. Model artifacts are stored in a versioned registry  
+5. Model is activated  
+6. Inference is performed  
+7. Prediction + confidence + SOAP summary are returned  
+
+All training runs are tracked with reproducible configuration metadata.
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+  server/
+    app.py          # FastAPI app + API endpoints
+    pipeline.py     # Training & inference orchestration
+    db.py           # Run tracking (SQLite)
+storage/
+  uploads/              # Uploaded CSVs (runtime)
+  training_data/        # Split datasets (runtime)
+  models_registry/
+    runs/               # Versioned model outputs
+    active/             # Currently active model
+```
+
+> Runtime artifacts (uploads, splits, model runs) are excluded from version control.
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Create Virtual Environment
 
 ```bash
 python -m venv .venv
-# Windows: .venv\Scripts\activate
 source .venv/bin/activate
+```
+
+(Windows: `.venv\Scripts\activate`)
+
+---
+
+### 2️⃣ Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-If you are on macOS + Python 3.9 and hit NumPy/PyTorch wheels issues, try ensuring NumPy < 2.0.
+---
+
+### 3️⃣ Run the Server
+
+```bash
+uvicorn src.server.app:app --host 0.0.0.0 --port 8000
+```
 
 ---
 
-## Data Format
+## ✅ Verify Server Is Running
 
-Each CSV must provide **`text`** and **`specialty`** columns (with an optional `id`).
+Open in your browser:
+
+```
+http://localhost:8000/health
+```
+
+Expected response:
+
+```json
+{"ok": true}
+```
+
+---
+
+## 📄 Required Data Format
+
+Each CSV must include:
+
+- `text`
+- `specialty`
+
+Example:
 
 ```csv
-id,text,specialty
-1,"Chief complaint: fever and cough for 3 days...", "Pediatrics"
-2,"Chest pain on exertion; ECG shows ST changes...", "Cardiology"
-```
-
-### Create Stratified Splits
-
-```bash
-python src/tools/stratify_split.py \
-  --input data/all_notes.csv \
-  --text-col text \
-  --label-col specialty \
-  --outdir data \
-  --test-size 0.10 --val-size 0.10 --seed 13
-# writes data/train.csv, data/val.csv, data/test.csv + split_summary.txt
+text,specialty
+"Fever and cough for 3 days","Pediatrics"
+"Chest pain on exertion","Cardiology"
 ```
 
 ---
 
-## Training Options
+## 🔌 Core API Endpoints
 
-### A) TF‑IDF + Logistic Regression (baseline)
+### Upload + Train
 
-```bash
-python src/classify/baselines/train_tfidf_logreg.py \
-  --train_csv data/train.csv \
-  --val_csv   data/val.csv \
-  --test_csv  data/test.csv \
-  --text_col  text \
-  --label_col specialty \
-  --outdir    models/cls_tfidf_logreg
-# artifacts: models/cls_tfidf_logreg/{model.joblib,config.json}
-# metrics:   reports/metrics/{test_report.json,confusion_matrix.png}
+```
+POST /train/data?model=nb
+POST /train/data?model=logreg
+POST /train/data?model=distilbert
 ```
 
-### B) TF‑IDF + Multinomial Naive Bayes (baseline)
-
-```bash
-python src/classify/baselines/train_tfidf_nb.py \
-  --train_csv data/train.csv \
-  --val_csv   data/val.csv \
-  --test_csv  data/test.csv \
-  --text_col  text \
-  --label_col specialty \
-  --outdir    models/cls_tfidf_nb
-# artifacts: models/cls_tfidf_nb/{model.joblib,label_encoder.json}
-```
-
-### C) DistilBERT (Transformers)
-
-```bash
-python src/classify/train_distilbert.py \
-  --train_csv data/train.csv \
-  --val_csv   data/val.csv \
-  --test_csv  data/test.csv \
-  --text_col  text \
-  --label_col specialty \
-  --outdir    models/cls_distilbert
-# artifacts: models/cls_distilbert/{config.json,tokenizer.json,model.safetensors,...}
-```
-
-> To keep GitHub small, **do not commit large model files**. Add `models/**` to `.gitignore` or set up **Git LFS** if you must push weights.
+- Accepts labeled CSV
+- Automatically triggers training
+- Returns `run_id`
 
 ---
 
-## Prediction
+### Check Run Status
 
-### Sklearn models (TF‑IDF baselines)
-
-```bash
-TEXT="26-year-old with Crohn's disease ... follow-up in 6 weeks."
-python src/classify/baselines/predict_sklearn.py models/cls_tfidf_logreg "$TEXT"
-# → {"label": "Gastroenterology", "probs": {...}}
+```
+GET /train/runs/{run_id}
 ```
 
-### DistilBERT
+Returns:
+- Training status
+- Validation metrics
+- Model metadata
 
-```bash
-python src/classify/predict.py models/cls_distilbert "$TEXT"
+---
+
+### Active Model
+
+```
+GET /models/active
+```
+
+Returns currently deployed model tier.
+
+---
+
+### Predict + Diagnose
+
+```
+POST /notes/predict
+```
+
+Returns:
+
+```json
+{
+  "prediction": "Cardiology",
+  "confidence": 0.42,
+  "soap_summary": "..."
+}
 ```
 
 ---
 
-## Entity Extraction (Weak NER)
+## 📊 Validation Metrics
 
-```bash
-python -c "from src.weak_ner.extract import extract_entities; \
-print(extract_entities(open('data/example_note.txt').read()))"
-# → {'diagnoses': [...], 'medications': [{'name':..., 'dose':...}, ...]}
-```
+Each training run records:
 
----
+- Validation Accuracy
+- Macro F1 Score
+- Training Sample Count
 
-## QA – Rule‑Based Checks
-
-Run quick quality checks (implausible vitals, missing sections, etc.) and save Markdown or JSON.
-
-```bash
-# Direct CLI
-python src/qa/report.py --text "$TEXT" --format md --out reports/examples/demo_qa.md
-# Or as a module
-python -m src.qa.report --text "$TEXT" --format json
-```
-
-Output example (Markdown):
-
-```md
-### QA Report
-
-- **vital_range** — Temperature out of plausible range
-- **section_missing** — Missing section: Medications
-```
+Metrics are stored alongside model artifacts in the registry.
 
 ---
 
-## SOAP‑Style Summaries
+## 📦 Model Registry
 
-```bash
-python src/summarize/build.py --text "$TEXT" > reports/examples/soap_summary.txt
-# prints a compact SOAP block using extracted entities
-```
+Each training run produces:
 
-Example (truncated):
+- Model artifact
+- Configuration metadata
+- Validation metrics
+- Timestamped run ID
 
-```
-=== SOAP Summary ===
-Assessment (Dx): Crohn's disease, iron‑deficiency anemia
-Medications: adalimumab, azathioprine | doses: 40 mg, 100 mg
-Plan: (extract from verbs like start/continue/return — TODO)
-```
-
-> The “Plan” line is deliberately conservative in Cycle 2; it will evolve as we expand action‑verb heuristics.
+The most recent completed run for a tier becomes the active model.
 
 ---
 
-## End‑to‑End Demo Script (copy‑paste)
+## 📱 Android Integration
 
-```bash
-# 1) Classify
-python src/classify/baselines/predict_sklearn.py models/cls_tfidf_logreg "$TEXT"
+The Android client connects to:
 
-# 2) QA
-python src/qa/report.py --text "$TEXT" --format md --out reports/examples/demo_qa.md
-cat reports/examples/demo_qa.md
-
-# 3) Summarize
-python src/summarize/build.py --text "$TEXT" > reports/examples/soap_summary.txt
-cat reports/examples/soap_summary.txt
+```
+http://10.0.2.2:8000
 ```
 
----
+(Emulator → localhost bridge)
 
-## Reports & Artifacts
-
-- **Classifier metrics:** `reports/metrics/test_report.json`
-- **Confusion matrix:** `reports/metrics/confusion_matrix.png`
-- **QA examples:** `reports/examples/*.md`
-- **Summaries:** `reports/examples/*.txt`
-
----
-
-## Troubleshooting
-
-- **`ModuleNotFoundError: No module named 'src'`**  
-  Use the provided CLIs exactly (`python src/...`). Both `src/qa/report.py` and `src/summarize/build.py` self‑bootstrap `sys.path`.
-- **Transformers wants the internet** for pretrained downloads. We fine‑tune locally; ensure your `models/cls_distilbert/` has the tokenizer & weights when predicting.
+User flow:
+1. Select model tier
+2. Upload CSV
+3. Trigger training
+4. View metrics
+5. Submit note for diagnosis
+6. Receive prediction + confidence + SOAP summary
 
 ---
 
-## Disclaimer
+## ⚠️ Notes on DistilBERT
 
-This is an educational prototype — **not** a medical device. No PHI. Validate outputs clinically before use.
+- Large model weights are not committed to GitHub.
+- Runtime-trained models are stored under `storage/models_registry/`.
+- Transformer training requires more compute time and memory.
+
+---
+
+## 🛑 Disclaimer
+
+This project is an educational prototype.
+
+- Not a medical device
+- No PHI should be used
+- Outputs require clinical validation
+- Confidence scores reflect model uncertainty, not clinical certainty
+
+---
+
+## 📌 Summary
+
+Transcriptive demonstrates:
+
+- End-to-end ML training pipeline
+- Version-controlled model deployment
+- Mobile client + backend coordination
+- Practical AI application in healthcare context
+
+It satisfies the requirements of a cohesive, communicating AI-powered system across server and mobile layers.
